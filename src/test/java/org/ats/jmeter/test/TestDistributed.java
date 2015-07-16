@@ -23,11 +23,10 @@ public class TestDistributed  {
 	@Test
 	public void test(){
 
-        // Engine
-        StandardJMeterEngine jm = new StandardJMeterEngine();
+        // Engine        
         // jmeter.properties
-        JMeterUtils.loadJMeterProperties("C://tmp//jmeter.properties");
-        JMeterUtils.setJMeterHome("C://tmp");
+        JMeterUtils.loadJMeterProperties("./config/bin/jmeter.properties");
+        JMeterUtils.setJMeterHome("./config");
         HashTree hashTree = new HashTree();     
         // HTTP Sampler
         HTTPSampler httpSampler = new HTTPSampler();
@@ -60,7 +59,7 @@ public class TestDistributed  {
             summer = new Summariser(summariserName);
         }
 
-        String logFile = "C://tmp//file.jtl";
+        String logFile = "./config/file.jtl";
         ResultCollector logger = new ResultCollector(summer);
         
         SampleSaveConfiguration conf = new SampleSaveConfiguration(true);
@@ -79,22 +78,22 @@ public class TestDistributed  {
          hashTree.add(hashTree.getArray()[0], logger);
         System.err.println(hashTree.getArray()[0]);
         
-		// run distribute
+		 // run distribute
         JMeterUtils.setProperty(DistributedRunner.RETRIES_NUMBER, "1");
         JMeterUtils.setProperty(DistributedRunner.CONTINUE_ON_FAIL, "true");
 //        
         
-		 DistributedRunner distributedRunner = new DistributedRunner();
+		    DistributedRunner distributedRunner = new DistributedRunner();
 		 
-		 List<String> hosts = new ArrayList<>();
-		 hosts.add("192.168.1.40");
+  		 List<String> hosts = new ArrayList<>();
+  		 hosts.add("192.168.1.4");
 //		 hosts.add("192.168.184.4");
 //		 hosts.add("192.168.184.5");
 //		 
-		 distributedRunner.init(hosts, hashTree);
+		  distributedRunner.init(hosts, hashTree);
 		
 //		 List<String> hosts1 = Arrays.asList("192.168.184.4");
-		 distributedRunner.start(hosts);
+		  distributedRunner.start(hosts);
 		
 		
 //		 distributedRunner.shutdown(hosts);
